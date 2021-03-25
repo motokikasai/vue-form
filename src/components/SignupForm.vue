@@ -1,16 +1,34 @@
 <template>
   <form>
     <label>Email:</label>
-    <input type="email" required />
+    <input type="email" required v-model="email" />
+
+    <label>Password:</label>
+    <input type="password" required v-model="password" />
+
+    <label>Role:</label>
+    <select v-model="role">
+      <option value="developer">Web Developer</option>
+      <option value="designer">Web Designer</option>
+    </select>
   </form>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      role: 'designer', // Default value from the values already declared
+    };
+  },
+};
 </script>
 
 <style>
 form {
+  max-width: 420px;
   margin: 30px auto;
   background: white;
   text-align: left;
@@ -28,7 +46,8 @@ label {
   font-weight: bold;
 }
 
-input {
+input,
+select {
   display: block;
   padding: 10px 6px;
   width: 100%;

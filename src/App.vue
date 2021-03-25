@@ -1,12 +1,15 @@
 <template>
-  <h1>hello Vue Form!</h1>
+  <h1>Vue Form</h1>
+  <SignupForm />
 </template>
 
 <script>
+import SignupForm from './components/SignupForm';
+
 export default {
   name: 'App',
   components: {
-    // HelloWorld,
+    SignupForm,
   },
 };
 </script>
