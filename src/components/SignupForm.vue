@@ -1,7 +1,7 @@
 <template>
   <form>
     <label>Email:</label>
-    <input type="email" required v-model="email" />
+    <input type="email" v-model="email" required />
 
     <label>Password:</label>
     <input type="password" required v-model="password" />
@@ -11,7 +11,38 @@
       <option value="developer">Web Developer</option>
       <option value="designer">Web Designer</option>
     </select>
+
+    <label>Skills:</label>
+    <input type="text" v-model="tempSkill" @keyup.alt="addSkill" />
+    <div
+      v-for="skill in skills"
+      :key="skill"
+      class="pill"
+      @click="deleteSkill(skill)"
+    >
+      {{ skill }}
+    </div>
+
+    <div class="terms">
+      <input type="checkbox" v-model="terms" required />
+      <label>Accept terms and conditions</label>
+    </div>
+
+    <!-- <div>
+      <input type="checkbox" value="Bond" v-model="names" />
+      <label>Bond</label>
+    </div>
+    <div>
+      <input type="checkbox" value="Q" v-model="names" />
+      <label>Q</label>
+    </div>
+    <div>
+      <input type="checkbox" value="M" v-model="names" />
+      <label>M</label>
+    </div> -->
   </form>
+
+  <!-- <p>Name: {{ names }}</p> -->
 </template>
 
 <script>
@@ -21,7 +52,29 @@ export default {
       email: '',
       password: '',
       role: 'designer', // Default value from the values already declared
+      terms: false,
+      //   names: [],
+      tempSkill: '',
+      skills: [],
     };
+  },
+
+  methods: {
+    addSkill(e) {
+      if (e.key === ',' && this.tempSkill) {
+        if (!this.skills.includes(this.tempSkill)) {
+          this.skills.push(this.tempSkill);
+        }
+        this.tempSkill = '';
+      }
+    },
+
+    deleteSkill(skill) {
+      this.skills = this.skills.filter(item => {
+        return item !== skill;
+      });
+      //   this.skills = newArrOfSkills;
+    },
   },
 };
 </script>
@@ -55,5 +108,26 @@ select {
   border: none;
   border-bottom: 1px solid #ddd;
   color: #555;
+}
+
+input[type='checkbox'] {
+  display: inline-block;
+  width: 16px;
+  margin: 0 10px 0 0;
+  position: relative;
+  top: 2px;
+}
+
+.pill {
+  display: inline-block;
+  margin: 20px 10px 0 0;
+  padding: 6px 12px;
+  background: #eee;
+  border-radius: 20px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: #777;
+  cursor: pointer;
 }
 </style>
